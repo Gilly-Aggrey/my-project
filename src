@@ -1,1 +1,39 @@
+import os
+import cv2
+import glob
+import yaml
+import random
+import pathlib
+import numpy as np
+import pandas as pd
+from PIL import Image
+import seaborn as sns
+from tqdm import tqdm
+from ultralytics import YOLO
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from tqdm.notebook import trange, tqdm
+from IPython.display import Image, Video
+from IPython.display import Image, display
+from sklearn.metrics import precision_score, recall_score
+!wandb disabled
+import warnings
+warnings.filterwarnings('ignore')
+train_path = '/kaggle/input/vehicledetection/VehiclesDetectionDataset/train/images'
+val_path = '/kaggle/input/vehicledetection/VehiclesDetectionDataset/valid/images'
+test_path = '/kaggle/input/vehicledetection/VehiclesDetectionDataset/test/images'
 
+yaml_content = f"""
+test: {test_path}
+train: {train_path}
+val: {val_path}
+
+nc: 5  # Number of classes
+names: ['Ambulance', 'Bus', 'Car', 'Motorcycle', 'Truck']
+"""
+output_path = 'data.yaml'
+with open(output_path, 'w') as file:
+    file.write(yaml_content)
+color_code = "\033[38;2;163;196;243m" 
+reset_code = "\033[0m"
+print(f"{color_code}YAML file has been saved to {output_path}{reset_code}")
